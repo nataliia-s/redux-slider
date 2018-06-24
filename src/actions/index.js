@@ -1,4 +1,3 @@
-import {API_URL} from './../config';
 export const SLIDES_SUCCESS = 'SLIDES_SUCCESS';
 export const SLIDER_FAILURE = 'SLIDER_FAILURE';
 export const SELECT_NEXT = 'SELECT_NEXT';
@@ -28,13 +27,13 @@ export const selectPrev = () => ({
 export function fetchSlides() {
     return (dispatch) => {
         dispatch(slidesSuccess());
-        return fetch(`${API_URL}/slider`)
+        return fetch(`/data/slider.json`)
 
             .then(handleErrors)
             .then(res => res.json())
-            .then(slides => {
-                dispatch(slidesSuccess(slides));
-                return slides;
+            .then(data => {
+                dispatch(slidesSuccess(data.slider));
+                return data.slider;
             })
             .catch(error => dispatch(requestError(error)));
     };
